@@ -1,0 +1,71 @@
+drop database bdsangue;
+create database bdsangue;
+use bdsangue;
+
+create table empresa (
+idEmpresa int primary key auto_increment,
+nomeFantasia varchar(45) not null,
+urlLogo varchar(256) not null,
+responsavel varchar(45) not null);
+
+insert into empresa values
+	(null, 'SaveBlood', 'https://static.vecteezy.com/ti/vetor-gratis/t2/8214517-abstract-geometric-logo-or-infinity-line-logo-for-your-company-gratis-vetor.jpg', 'Junior'),
+    (null, 'AmoSangue', 'https://s3-sa-east-1.amazonaws.com/projetos-artes/fullsize%2F2013%2F09%2F18%2F23%2FWDL-Logo-31737_33419_054801853_1173429928.jpg', 'Valeria');
+    
+create table endereco (
+idEndereco int primary key auto_increment,
+nomeRua varchar(45) not null,
+numero varchar(5) not null,
+CEP char(8) not null,
+estado char(2) not null,
+cidade varchar(45) not null,
+bairro varchar(45) not null,
+CNPJ char(11) not null,
+fkEmpresa int not null,
+constraint FKE foreign key (fkEmpresa) references empresa(idEmpresa))auto_increment = 100;
+
+insert into endereco values 
+	(null, 'HadockLobo', '20', '12345678', 'SP', 'São Paulo', 'Paulista', '12345678911', '1'),
+    (null, 'Liberdade', '204', '12345679', 'SP', 'São Paulo', 'Liberdade', '12345678922', '2');
+    
+create table usuario (
+idUsuario int primary key auto_increment,
+emailUsuario varchar(45) not null,
+senha varchar(45) not null,
+nomeNick varchar(45) not null,
+nomeUsuario varchar(45) not null,
+telefone varchar(45) not null,
+fkEndereco int not null,
+constraint FKD foreign key (fkEndereco) references endereco(idEndereco)) auto_increment = 1000;
+
+insert into usuario values
+	(null, 'Junior@gmail.com', 'senhalegal', 'Junior123', 'Junior', '11951938872', '100'),
+    (null, 'valeria@gmail.com', 'senha123', 'Valeria', 'Valeria', '11945200901', '101');
+
+
+create table sensor (
+idSensor int primary key auto_increment,
+geladeira varchar(45) not null,
+fkEndereco int not null,
+constraint FKDD foreign key (fkEndereco) references endereco(idEndereco)) auto_increment = 2000;
+
+insert into sensor values
+	(null, 'geladeira 01', '100'),
+    (null, 'geladeira Leste', '101');
+    
+    select * from sensor;
+
+create table registro (
+idRegistro int primary key auto_increment,
+horario datetime default current_timestamp,
+temperatura varchar(10) not null,
+fkSensor int not null,
+constraint FKS foreign key (fkSensor) references sensor(idSensor)) auto_increment = 3000;
+
+insert into registro (temperatura, fkSensor) values 
+	('05.2', '2000'),
+    ('02.3', '2001');
+    
+
+
+

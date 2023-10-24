@@ -161,6 +161,7 @@ where sensor.idSensor = 1003;
 select sensor.geladeira as Sensor, endereco.nomeRua as Endereço from sensor
 join endereco on idEndereco = fkEndereco;
 
-
-
-
+-- Pegar os usuários e suas respectivas empresas
+select usu.nomeNick as 'Nome do usuário', emp.nome as NomeEmpresa  from usuario as usu
+join endereco as ender on usu.fkEndereco = ender.idEndereco
+join empresa as emp on ender.fkEmpresa = emp.idEmpresa;
